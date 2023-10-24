@@ -1,0 +1,35 @@
+# 全局配置文件
+# 该文件的配置会被写入function的yaml文件的 function.{fn_name}.environments 中，但是如果yaml文件中有同名的配置，将会覆盖这里的全局配置
+# 例如：本文件存在如下配置：
+# environments:
+#   - key: APP_ID
+#     value: ${env:APP_ID}
+# 同时function的yaml文件中存在如下配置：
+# environments:
+#   - key: APP_ID
+#     value: ${env:APP_ID_ANOTHER}
+# 那么最终的配置将会是：
+# environments:
+#   - key: APP_ID
+#     value: ${env:APP_ID_ANOTHER}
+environments:
+  - key: STAGE
+    value: ${stage}
+  - key: NAMESPACE
+    value: ${env:NAMESPACE}
+  - key: REDIS_HOST
+    value: ${env:REDIS_HOST}
+  - key: REDIS_PORT
+    value: ${env:REDIS_PORT}
+  - key: REDIS_CACHE_DB
+    value: ${env:REDIS_CACHE_DB}
+  - key: REDIS_PASSWORD
+    value: ${env:REDIS_PASSWORD}
+  - key: REGION
+    value: ${env:REGION}
+  - key: TENCENT_SECRET_ID
+    value: ${env:TENCENT_SECRET_ID}
+  - key: TENCENT_SECRET_KEY
+    value: ${env:TENCENT_SECRET_KEY}
+  - key: TZ
+    value: Asia/Shanghai

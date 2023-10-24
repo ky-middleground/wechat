@@ -1,0 +1,47 @@
+function:
+  command:
+    name: ${app}-${name}-command
+    handler: index.command
+    environments:
+      - key: STAGE
+        value: ${stage}
+      - key: NAMESPACE
+        value: ${env:NAMESPACE}
+      - key: MONGODB_URI
+        value: ${env:MONGODB_URI_COMMAND}
+      - key: REDIS_HOST
+        value: ${env:REDIS_HOST}
+      - key: REDIS_PORT
+        value: ${env:REDIS_PORT}
+      - key: REDIS_CACHE_DB
+        value: ${env:REDIS_CACHE_DB}
+      - key: REDIS_PASSWORD
+        value: ${env:REDIS_PASSWORD}
+      - key: REGION
+        value: ${env:REGION}
+      - key: TENCENT_SECRET_ID
+        value: ${env:TENCENT_SECRET_ID}
+      - key: TENCENT_SECRET_KEY
+        value: ${env:TENCENT_SECRET_KEY}
+      - key: AGORA_APP_ID
+        value: ${env:AGORA_APP_ID}
+      - key: AGORA_CERTIFICATE
+        value: ${env:AGORA_CERTIFICATE}
+      - key: TDMQ_PULSAR_URL
+        value: ${env:TDMQ_PULSAR_URL}
+      - key: TDMQ_PULSAR_TOKEN
+        value: ${env:TDMQ_PULSAR_TOKEN}
+      - key: TZ
+        value: Asia/Shanghai
+
+apis:
+  - path: /${name}/{commandRouterParam}
+    method: POST
+    enableCORS: true
+    function: command
+    param:
+      - name: commandRouterParam
+        position: PATH
+        required: true
+        type: string
+        desc: 路由描述

@@ -1,0 +1,68 @@
+app: demo-app # 需要修改
+component: multi-scf
+name: demo-name # 需要修改
+
+inputs:
+  src:
+    src: ./
+    exclude:
+      - .env
+      - serverless.yml
+      - package.json
+  region: ${env:REGION}
+  namespace: ${env:NAMESPACE}
+  runtime: Nodejs16.13
+  memorySize: 128
+  timeout: 30
+  environments:
+    - key: STAGE
+      value: ${stage}
+    - key: NAMESPACE
+      value: ${env:NAMESPACE}
+    - key: MONGODB_URI
+      value: ${env:MONGODB_URI_COMMAND}
+    - key: REDIS_HOST
+      value: ${env:REDIS_HOST}
+    - key: REDIS_PORT
+      value: ${env:REDIS_PORT}
+    - key: REDIS_CACHE_DB
+      value: ${env:REDIS_CACHE_DB}
+    - key: REDIS_PASSWORD
+      value: ${env:REDIS_PASSWORD}
+    - key: REGION
+      value: ${env:REGION}
+    - key: TENCENT_SECRET_ID
+      value: ${env:TENCENT_SECRET_ID}
+    - key: TENCENT_SECRET_KEY
+      value: ${env:TENCENT_SECRET_KEY}
+    - key: AGORA_APP_ID
+      value: ${env:AGORA_APP_ID}
+    - key: AGORA_CERTIFICATE
+      value: ${env:AGORA_CERTIFICATE}
+    - key: TDMQ_PULSAR_URL
+      value: ${env:TDMQ_PULSAR_URL}
+    - key: TDMQ_PULSAR_TOKEN
+      value: ${env:TDMQ_PULSAR_TOKEN}        
+    - key: TZ
+      value: Asia/Shanghai   
+  tags:
+    - key: domain
+      value: ${app}-${name}
+  publicAccess: true # 是否开启公网访问
+  vpcConfig: # 私有网络配置
+    vpcId: ${env:VPC_ID} # 私有网络的Id
+    subnetId: ${env:SUBNET_ID} # 子网ID
+  functions:
+  triggers:
+    - type: apigw
+      parameters:
+        id: ${env:SERVICE_ID}
+        serviceName: ${env:SERVICE_NAME}
+        protocols:
+          - https
+          - http
+        apis:
+
+
+
+  

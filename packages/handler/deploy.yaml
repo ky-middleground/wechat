@@ -1,0 +1,37 @@
+# 本文件定义了部署函数的配置
+
+# 发布环境，如果要修改 dev2 部署的函数，就修改 dev2: 下面的
+demo:
+  functions:
+    # 是否启用选择性部署，如果为false，则不会应用本stage下的functions配置，而是全量部署
+    enable: true
+    files:
+      # 当启用选择性部署的时候，会去 ./deploy/function 目录下寻找对应的文件
+      # 下面的写法都是合法的
+      - demo.yaml
+      - demo.yml
+      - demo
+  concurrency: # 预制并发配置，注意，只会对最终的 serverless.yaml 中存在的函数进行预置并发配置，不存在的就不会设置
+    # 全局预置并发谁知，如果不填写，则所有dev环境均默认为0，prod环境均默认为1
+    # 例如对于 dev2 来说。不写gobal则意味着默认存在如下配置
+    # global:
+    #   num: 0
+    # 对于 prod 来说，不写global则意味着默认存在如下配置
+    # global:
+    #   num: 1
+    global:
+      num: 1
+    # 如果需要对某个函数进行特别的预置并发配置，可以在下面进行配置
+    functions:
+      demo: # function 名称
+        num: 2 # 预置并发数，0表示不设置预置并发
+dev2:
+  functions:
+    enable: true
+    files:
+      - query
+      - command
+prod:
+  functions:
+    enable: false
+    files:

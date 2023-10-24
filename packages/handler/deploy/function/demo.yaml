@@ -1,0 +1,26 @@
+function:
+  demoFunc:
+    name: ${app}-${name}-demo
+    handler: index.demo
+    environments:
+      - key: demoKey
+        value: demoValue
+
+apis:
+  - path: /demo/path1
+    method: POST
+    enableCORS: true
+    function: demoFunc
+  - path: /demo/path2
+    method: GET
+    enableCORS: false
+    function: demoFunc
+
+
+triggers:
+  - type: trigger
+    function: demoFunc
+    parameters:
+      name: ${app}-${name}-trigger-demoFunc
+      cronExpression: '* * * * * * *'
+      enable: true
